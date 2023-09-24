@@ -1,0 +1,3 @@
+res://CombatMechanics/EmptyBattleScene.tscn
+res://CombatMechanics/Scripts/MovementBase.cs
+res://CombatMechanics/Scripts/PlayerInput.cs

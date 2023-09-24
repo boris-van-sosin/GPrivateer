@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://r43ghjgupxii"]
+
+[ext_resource type="Script" path="res://CombatMechanics/Scripts/PlayerInput.cs" id="1_cjmyo"]
+[ext_resource type="Script" path="res://CombatMechanics/Scripts/MovementBase.cs" id="2_ebwej"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x8au8"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jnn1g"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wc176"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jy5ch"]
+radius = 0.268251
+height = 1.34044
+
+[node name="Root" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.499546, 0.866287, 0, -0.866287, 0.499546, 0, 3.07905, 2.28854)
+
+[node name="BasePlane" type="MeshInstance3D" parent="."]
+visible = false
+mesh = SubResource("PlaneMesh_x8au8")
+skeleton = NodePath("")
+
+[node name="MarkerBox" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_jnn1g")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.914699, 0.28225, 0.289242, 0, -0.715705, 0.698403, 0.404136, -0.638828, -0.654655, 0, 2.6534, -2.83038)
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("1_cjmyo")
+
+[node name="Ship" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.31067, 0, 0)
+axis_lock_linear_y = true
+center_of_mass_mode = 1
+gravity_scale = 0.0
+linear_damp_mode = 1
+angular_damp_mode = 1
+script = ExtResource("2_ebwej")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ship"]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, -0.5, 0, 0.5, -2.18557e-08, 0, 0.25, 0)
+mesh = SubResource("CylinderMesh_wc176")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ship"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.25, 0)
+shape = SubResource("CapsuleShape3D_jy5ch")

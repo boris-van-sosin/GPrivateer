@@ -1,0 +1,8 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1695583011
+icon.svg::CompressedTexture2D::7466330696314876889::1695572897::1695572914::1::::<><>::
+::res://CombatMechanics/::1695583004
+EmptyBattleScene.tscn::PackedScene::1254788469141820844::1695583004::0::1::::<><>::res://CombatMechanics/Scripts/PlayerInput.cs<>res://CombatMechanics/Scripts/MovementBase.cs
+::res://CombatMechanics/Scripts/::1695582426
+MovementBase.cs::CSharpScript::-1::1695582426::0::1::::<><>::
+PlayerInput.cs::CSharpScript::-1::1695582226::0::1::::<><>::
