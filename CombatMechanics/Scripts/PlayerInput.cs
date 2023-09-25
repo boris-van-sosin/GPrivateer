@@ -1,3 +1,5 @@
+using FullBroadside;
+using FullBroadside.Importers;
 using Godot;
 using System;
 
@@ -49,7 +51,12 @@ public partial class PlayerInput : Node
 				_controlledShip.Turn(ControlTurningDir.Right);
 			GD.Print("Right");
 		}
-	}
+		else if (ev is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+		{
+			ShipImporter.SpawnMonitor(_controlledShip);
+        }
+
+    }
 
 	private MovementBase _controlledShip = null;
 }
