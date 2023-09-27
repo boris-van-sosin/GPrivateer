@@ -19,44 +19,25 @@ namespace FullBroadside.Importers
             st.Begin(Mesh.PrimitiveType.Triangles);
             for (int i = 0; i < hull.Faces.Count; ++i)
             {
-                if (hull.Faces[i].Item3.UVIdx >= 0)
-                    st.SetUV(hull.UVs[hull.Faces[i].Item3.UVIdx]);
-                if (hull.Faces[i].Item3.NormalIdx >= 0)
-                    st.SetNormal(hull.Normals[hull.Faces[i].Item3.NormalIdx]);
-                st.AddVertex(hull.Vertices[hull.Faces[i].Item3.VertexIdx]);
-
-                if (hull.Faces[i].Item2.UVIdx >= 0)
-                    st.SetUV(hull.UVs[hull.Faces[i].Item2.UVIdx]);
-                if (hull.Faces[i].Item2.NormalIdx >= 0)
-                    st.SetNormal(hull.Normals[hull.Faces[i].Item2.NormalIdx]);
-                st.AddVertex(hull.Vertices[hull.Faces[i].Item2.VertexIdx]);
-
-
-                if (hull.Faces[i].Item1.UVIdx >= 0)
-                    st.SetUV(hull.UVs[hull.Faces[i].Item1.UVIdx]);
-                if (hull.Faces[i].Item1.NormalIdx >= 0)
-                    st.SetNormal(hull.Normals[hull.Faces[i].Item1.NormalIdx]);
-                st.AddVertex(hull.Vertices[hull.Faces[i].Item1.VertexIdx]);
+                for (int v = 2; v >= 0; --v)
+                {
+                    if (hull.Faces[i][v].UVIdx >= 0)
+                        st.SetUV(hull.UVs[hull.Faces[i][v].UVIdx]);
+                    if (hull.Faces[i][v].NormalIdx >= 0)
+                        st.SetNormal(hull.Normals[hull.Faces[i][v].NormalIdx]);
+                    st.AddVertex(hull.Vertices[hull.Faces[i][v].VertexIdx]);
+                }
             }
             for (int i = 0; i < teamColor.Faces.Count; ++i)
             {
-                if (teamColor.Faces[i].Item3.UVIdx >= 0)
-                    st.SetUV(teamColor.UVs[teamColor.Faces[i].Item3.UVIdx]);
-                if (teamColor.Faces[i].Item3.NormalIdx >= 0)
-                    st.SetNormal(teamColor.Normals[teamColor.Faces[i].Item3.NormalIdx]);
-                st.AddVertex(teamColor.Vertices[teamColor.Faces[i].Item3.VertexIdx]);
-
-                if (teamColor.Faces[i].Item2.UVIdx >= 0)
-                    st.SetUV(teamColor.UVs[teamColor.Faces[i].Item2.UVIdx]);
-                if (teamColor.Faces[i].Item2.NormalIdx >= 0)
-                    st.SetNormal(teamColor.Normals[teamColor.Faces[i].Item2.NormalIdx]);
-                st.AddVertex(teamColor.Vertices[teamColor.Faces[i].Item2.VertexIdx]);
-
-                if (teamColor.Faces[i].Item1.UVIdx >= 0)
-                    st.SetUV(teamColor.UVs[teamColor.Faces[i].Item1.UVIdx]);
-                if (teamColor.Faces[i].Item1.NormalIdx >= 0)
-                    st.SetNormal(teamColor.Normals[teamColor.Faces[i].Item1.NormalIdx]);
-                st.AddVertex(teamColor.Vertices[teamColor.Faces[i].Item1.VertexIdx]);
+                for (int v = 2; v >= 0; --v)
+                {
+                    if (teamColor.Faces[i][v].UVIdx >= 0)
+                        st.SetUV(teamColor.UVs[teamColor.Faces[i][v].UVIdx]);
+                    if (teamColor.Faces[i][v].NormalIdx >= 0)
+                        st.SetNormal(teamColor.Normals[teamColor.Faces[i][v].NormalIdx]);
+                    st.AddVertex(teamColor.Vertices[teamColor.Faces[i][v].VertexIdx]);
+                }
             }
 
             st.Index();

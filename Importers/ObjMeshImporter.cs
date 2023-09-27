@@ -14,6 +14,7 @@ namespace FullBroadside.Importers
             ObjMesh currMesh = new ObjMesh() { Name = string.Empty };
             int lineCount = -1;
             int vertrxBase = 0, uvBase = 0, normalBase = 0;
+            bool smoothState = true;
             while (null != (line = reader.ReadLine()))
             {
                 ++lineCount;
@@ -39,31 +40,36 @@ namespace FullBroadside.Importers
                             uvBase += currMesh.UVs.Count;
                             normalBase += currMesh.Normals.Count;
                             currMesh = new ObjMesh() { Name = subMeshName };
+                            smoothState = true;
                         }
                     }
-                    else if (lineElems[0].Equals("v", System.StringComparison.InvariantCultureIgnoreCase))
+                    else if (lineElems[0].Equals("v", StringComparison.InvariantCultureIgnoreCase))
                     {
                         currMesh.Vertices.Add(new Godot.Vector3() { X = float.Parse(lineElems[1]),
                                                                     Y = float.Parse(lineElems[2]),
                                                                     Z = float.Parse(lineElems[3])});
                     }
-                    else if (lineElems[0].Equals("vt", System.StringComparison.InvariantCultureIgnoreCase))
+                    else if (lineElems[0].Equals("vt", StringComparison.InvariantCultureIgnoreCase))
                     {
                         currMesh.UVs.Add(new Godot.Vector2() { X = float.Parse(lineElems[1]),
                                                                Y = float.Parse(lineElems[2])});
                     }
-                    else if (lineElems[0].Equals("vn", System.StringComparison.InvariantCultureIgnoreCase))
+                    else if (lineElems[0].Equals("vn", StringComparison.InvariantCultureIgnoreCase))
                     {
                         currMesh.Normals.Add(new Godot.Vector3() { X = float.Parse(lineElems[1]),
                                                                    Y = float.Parse(lineElems[2]),
                                                                    Z = float.Parse(lineElems[3])});
                     }
-                    else if (lineElems[0].Equals("f", System.StringComparison.InvariantCultureIgnoreCase))
+                    else if (lineElems[0].Equals("s", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        smoothState = (lineElems[1].Equals("1"));
+                    }
+                    else if (lineElems[0].Equals("f", StringComparison.InvariantCultureIgnoreCase))
                     {
                         List<FaceVertexInfo> faceInfo = new List<FaceVertexInfo>();
                         for (int i = 1; i < lineElems.Length; ++i)
                         {
-                            faceInfo.Add(FaceInfo(lineElems[i], vertrxBase, uvBase, normalBase));
+                            faceInfo.Add(FaceInfo(lineElems[i], vertrxBase, uvBase, normalBase, smoothState));
                         }
                         currMesh.Faces.Add(faceInfo);
                     }
@@ -82,7 +88,7 @@ namespace FullBroadside.Importers
             return res;
         }
 
-        private static FaceVertexInfo FaceInfo(string f, int vertexBase = 0, int uvBase = 0, int normalBase = 0)
+        private static FaceVertexInfo FaceInfo(string f, int vertexBase = 0, int uvBase = 0, int normalBase = 0, bool smooth = true)
         {
             string[] faceElems = f.Split('/');
             if (faceElems.Length == 1)
@@ -133,19 +139,19 @@ namespace FullBroadside.Importers
             return res;
         }
 
-        private static List<(FaceVertexInfo, FaceVertexInfo, FaceVertexInfo)> TriangulatePolygon(List<FaceVertexInfo> poly, ObjMeshBase refMesh)
+        private static List<TriangleInfo> TriangulatePolygon(List<FaceVertexInfo> poly, ObjMeshBase refMesh)
         {
-            List<(FaceVertexInfo, FaceVertexInfo, FaceVertexInfo)> res = new List<(FaceVertexInfo, FaceVertexInfo, FaceVertexInfo)>();
+            List<TriangleInfo> res = new List<TriangleInfo>();
             TriangulatePolygonTo(poly, refMesh, res, (lst, trig) => { lst.Add(trig); });
             return res;
         }
 
-        private static void TriangulatePolygonTo<T>(List<FaceVertexInfo> poly, ObjMeshBase refMesh, T target, Action<T, (FaceVertexInfo, FaceVertexInfo, FaceVertexInfo)> addAction)
+        private static void TriangulatePolygonTo<T>(List<FaceVertexInfo> poly, ObjMeshBase refMesh, T target, Action<T, TriangleInfo> addAction)
         {
             
             if (poly.Count == 3)
             {
-                addAction(target, (poly[0], poly[1], poly[2]));
+                addAction(target, TriangleInfo.From(poly[0], poly[1], poly[2]));
                 return;
             }
             else if (poly.Count < 3)
@@ -226,7 +232,7 @@ namespace FullBroadside.Importers
                     // Output the ear and remove it from the polygon:
                     if (isEar)
                     {
-                        addAction(target, (polyCopy[i], polyCopy[(i + 1) % polyCopy.Count], polyCopy[(i + 2) % polyCopy.Count]));
+                        addAction(target, TriangleInfo.From(polyCopy[i], polyCopy[(i + 1) % polyCopy.Count], polyCopy[(i + 2) % polyCopy.Count]));
                         polyCopy.RemoveAt((i + 1) % polyCopy.Count);
                         break;
                     }
@@ -234,7 +240,7 @@ namespace FullBroadside.Importers
             }
 
             // Output the final triangle:
-            addAction(target, (polyCopy[0], polyCopy[1], polyCopy[2]));
+            addAction(target, TriangleInfo.From(polyCopy[0], polyCopy[1], polyCopy[2]));
         }
     }
 }
