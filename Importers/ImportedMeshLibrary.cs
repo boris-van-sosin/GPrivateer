@@ -9,9 +9,14 @@ using System.Threading.Tasks;
 
 namespace FullBroadside
 {
-    public static class ImportedMeshLibrary
+    public static class GlobalMeshLibrary
     {
-        public static ObjTriangleMesh GetMesh(string filePath, string meshName)
+        public static readonly ImportedMeshLibrary MeshLibrary = new ImportedMeshLibrary();
+    }
+
+    public class ImportedMeshLibrary
+    {
+        public ObjTriangleMesh GetMesh(string filePath, string meshName)
         {
             ObjTriangleMesh resMesh = null;
             if (_meshLibrary.TryGetValue((filePath, meshName), out resMesh))
@@ -39,6 +44,6 @@ namespace FullBroadside
             return resMesh;
         }
 
-        private static Dictionary<(string, string), ObjTriangleMesh> _meshLibrary = new Dictionary<(string, string), ObjTriangleMesh>();
+        private Dictionary<(string, string), ObjTriangleMesh> _meshLibrary = new Dictionary<(string, string), ObjTriangleMesh>();
     }
 }

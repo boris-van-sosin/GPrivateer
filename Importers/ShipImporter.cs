@@ -1,6 +1,7 @@
 ﻿using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,22 @@ namespace FullBroadside.Importers
 {
     public static class ShipImporter
     {
-        public static MeshInstance3D SpawnMonitor(Node3D rootNode)
+        public static List<Node3D> SpawnMonitor(Node3D rootNode)
         {
-            ObjTriangleMesh hull = ImportedMeshLibrary.GetMesh("res://LoadedAssets/GeomAssets/terran - sloop monitor.obj", "MonitorHull");
-            ObjTriangleMesh teamColor = ImportedMeshLibrary.GetMesh("res://LoadedAssets/GeomAssets/terran - sloop monitor.obj", "MonitorTeamColor");
+            string monitorDefPath = ProjectSettings.GlobalizePath("res://LoadedAssets/TextAssets/ShipHulls/Terran Sloop Monitor.yml");
+            ShipHullDefinition monitorDef = HierarchySerializer.LoadHierarchy<ShipHullDefinition>(new StreamReader(monitorDefPath));
+            List<Node3D> res = new List<Node3D>();
+            res.AddRange(HierarchyConstructionUtil.ConstructHierarchy(monitorDef.Geometry, null, 1, 2, 3));
+            res.AddRange(HierarchyConstructionUtil.ConstructHierarchy(monitorDef.TeamColorComponents, null, 1, 2, 3));
+            for (int i = 0; i < res.Count; ++i)
+                rootNode.AddChild(res[i]);
+            return res;
+        }
+
+        public static MeshInstance3D SpawnMonitorOld(Node3D rootNode)
+        {
+            ObjTriangleMesh hull = GlobalMeshLibrary.MeshLibrary.GetMesh("res://LoadedAssets/GeomAssets/terran - sloop monitor.obj", "MonitorHull");
+            ObjTriangleMesh teamColor = GlobalMeshLibrary.MeshLibrary.GetMesh("res://LoadedAssets/GeomAssets/terran - sloop monitor.obj", "MonitorTeamColor");
             MeshInstance3D shipMesh = new MeshInstance3D();
 
             SurfaceTool st = new SurfaceTool();
