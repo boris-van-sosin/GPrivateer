@@ -1,8 +1,0 @@
-MeshInstance3D
-RigidBody3D
-CollisionShape3D
-Node
-Node3D
-MultiMeshInstance3D
-DirectionalLight3D
-Camera3D
