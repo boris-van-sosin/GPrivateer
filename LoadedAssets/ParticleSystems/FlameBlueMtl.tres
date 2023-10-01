@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://mqtaxnwgu5gm"]
+
+[ext_resource type="Texture2D" uid="uid://biipq3x1q6mic" path="res://LoadedAssets/ParticleSystems/BasicFlame.png" id="1_atkep"]
+
+[resource]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+disable_ambient_light = true
+albedo_color = Color(0.117647, 0.196078, 1, 0.313726)
+albedo_texture = ExtResource("1_atkep")
+disable_receive_shadows = true
+billboard_keep_scale = true

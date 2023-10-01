@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://f8q1rmvywgad"]
+
+[ext_resource type="Material" uid="uid://cer6a2hx51rvq" path="res://LoadedAssets/ParticleSystems/FlameYelloMtl.tres" id="1_hp3a2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1lmh7"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qgq24"]
+lifetime_randomness = 0.2
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 0.01
+emission_ring_inner_radius = 0.0
+direction = Vector3(0, 1, 0)
+spread = 2.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.2
+initial_velocity_max = 2.0
+scale_min = 0.8
+scale_max = 1.2
+
+[sub_resource type="QuadMesh" id="QuadMesh_b1nc6"]
+material = ExtResource("1_hp3a2")
+size = Vector2(0.25, 0.5)
+center_offset = Vector3(0, 0.2, 0)
+
+[node name="MuzzleFlash" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.32128, 0, 0)
+mesh = SubResource("BoxMesh_1lmh7")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Node3D"]
+cast_shadow = 0
+emitting = false
+amount = 4
+lifetime = 0.09
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+visibility_aabb = AABB(-0.25, -0.25, -0.25, 0.5, 1, 0.5)
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_qgq24")
+draw_pass_1 = SubResource("QuadMesh_b1nc6")
