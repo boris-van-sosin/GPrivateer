@@ -14,12 +14,19 @@ namespace FullBroadside.Importers
         {
             string monitorDefPath = ProjectSettings.GlobalizePath("res://LoadedAssets/TextAssets/ShipHulls/Terran Sloop Monitor.yml");
             ShipHullDefinition monitorDef = HierarchySerializer.LoadHierarchy<ShipHullDefinition>(new StreamReader(monitorDefPath));
-            List<Node3D> res = new List<Node3D>();
+            List<(Node3D, Transform3D)> res = new List<(Node3D, Transform3D)>();
             res.AddRange(HierarchyConstructionUtil.ConstructHierarchy(monitorDef.Geometry, null, 1, 2, 3));
             res.AddRange(HierarchyConstructionUtil.ConstructHierarchy(monitorDef.TeamColorComponents, null, 1, 2, 3));
+            res.Add(HierarchyConstructionUtil.ConstructHierarchy(monitorDef.EngineExhaustOn, null, 1, 2, 3)[0]);
+
+            List<Node3D> resNodes = new List<Node3D>(res.Count);
             for (int i = 0; i < res.Count; ++i)
-                rootNode.AddChild(res[i]);
-            return res;
+            {
+                rootNode.AddChild(res[i].Item1);
+                res[i].Item1.Transform = res[i].Item2;
+                resNodes.Add(res[i].Item1);
+            }
+            return resNodes;
         }
 
         public static MeshInstance3D SpawnMonitorOld(Node3D rootNode)

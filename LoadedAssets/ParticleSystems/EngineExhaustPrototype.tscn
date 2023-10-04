@@ -1,12 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://db6rvj4yxvgs5"]
+[gd_scene load_steps=6 format=3 uid="uid://doogif1nu3amj"]
 
-[ext_resource type="Texture2D" uid="uid://biipq3x1q6mic" path="res://LoadedAssets/ParticleSystems/BasicFlame.png" id="1_jnqhq"]
+[ext_resource type="Texture2D" uid="uid://biipq3x1q6mic" path="res://LoadedAssets/ParticleSystems/BasicFlame.png" id="1_ig1hd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s6jpg"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ag2jm"]
 lifetime_randomness = 0.7
 emission_shape = 1
 emission_sphere_radius = 0.05
-particle_flag_align_y = true
 direction = Vector3(0, 1, 0)
 spread = 0.5
 gravity = Vector3(0, 0, 0)
@@ -20,7 +21,7 @@ attractor_interaction_enabled = false
 transparency = 1
 blend_mode = 1
 albedo_color = Color(1, 1, 0.470588, 0.745098)
-albedo_texture = ExtResource("1_jnqhq")
+albedo_texture = ExtResource("1_ig1hd")
 disable_receive_shadows = true
 grow_amount = -0.5
 
@@ -29,12 +30,22 @@ material = SubResource("StandardMaterial3D_3cx13")
 size = Vector2(0.3, 1.5)
 center_offset = Vector3(0, 0.7, 0)
 
-[node name="GPUParticles3D" type="GPUParticles3D"]
+[node name="Node" type="Node"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.67959, 0, 0)
+mesh = SubResource("BoxMesh_s6jpg")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 1.41421, 1.41421, 0, -1.41421, 1.41421, 0, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Node3D"]
 cast_shadow = 0
 amount = 10
 lifetime = 0.1
 randomness = 0.2
-visibility_aabb = AABB(-0.5, -0.25, -0.5, 1, 2.75, 1)
+visibility_aabb = AABB(-1, -1, -1, 2, 4, 2)
 transform_align = 3
+trail_lifetime = 0.2
 process_material = SubResource("ParticleProcessMaterial_ag2jm")
 draw_pass_1 = SubResource("QuadMesh_o33vd")

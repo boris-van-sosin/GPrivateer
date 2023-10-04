@@ -173,13 +173,16 @@ MagneticField:
     y: 180
     z: 0
   Scale:
-    x: 0.1
-    y: 0.3
-    z: 0.1
+    x: 1
+    y: 1
+    z: 1
   NodeParticleSystem:
-    AssetBundlePath: AssetBundles\StandaloneWindows\effects
-    AssetPath: MagneticField
-    ParticleSystemPath: ''
+    ResourcePath: ''
+    Scale:
+      x: 0.1
+      y: 0.3
+    LifetimeFactor: 1.0
+    VelocityFactor: 1.0
   SubNodes: []
 DamageSmoke:
   Name: Damage smoke effect
@@ -196,9 +199,12 @@ DamageSmoke:
     y: 0.3
     z: 0.1
   NodeParticleSystem:
-    AssetBundlePath: AssetBundles\StandaloneWindows\effects
-    AssetPath: Damage smoke effect
-    ParticleSystemPath: ''
+    ResourcePath: ''
+    Scale:
+      x: 0.1
+      y: 0.3
+    LifetimeFactor: 1.0
+    VelocityFactor: 1.0
   SubNodes: []
 EngineExhaustOn:
   Name: Engine exhaust on
@@ -207,13 +213,13 @@ EngineExhaustOn:
     y: 0
     z: -0.453
   Rotation:
-    x: 270
-    y: 180
+    x: -90
+    y: 0
     z: 0
   Scale:
-    x: 10
-    y: 10
-    z: 10
+    x: 1
+    y: 1
+    z: 1
   SubNodes:
   - Name: Engine exhaust R
     Position:
@@ -221,17 +227,20 @@ EngineExhaustOn:
       y: -0.0015
       z: -0.0009
     Rotation:
-      x: 90
+      x: 0
       y: 0
       z: 0
     Scale:
-      x: 0.05
-      y: 0.05
-      z: 0.05
+      x: 1
+      y: 1
+      z: 1
     NodeParticleSystem:
-      AssetBundlePath: AssetBundles\StandaloneWindows\effects
-      AssetPath: Engine exhaust
-      ParticleSystemPath: ''
+      ResourcePath: 'res://LoadedAssets/ParticleSystems/EngineExhaust.tscn'
+      Scale:
+        x: 0.5
+        y: 0.5
+      LifetimeFactor: 1.0
+      VelocityFactor: 1.0
     SubNodes: []  
   - Name: Engine exhaust L
     Position:
@@ -239,17 +248,20 @@ EngineExhaustOn:
       y: -0.0015
       z: -0.0009
     Rotation:
-      x: 90
+      x: 0
       y: 0
       z: 0
     Scale:
-      x: 0.05
-      y: 0.05
-      z: 0.05
+      x: 1
+      y: 1
+      z: 1
     NodeParticleSystem:
-      AssetBundlePath: AssetBundles\StandaloneWindows\effects
-      AssetPath: Engine exhaust
-      ParticleSystemPath: ''
+      ResourcePath: 'res://LoadedAssets/ParticleSystems/EngineExhaust.tscn'
+      Scale:
+        x: 0.5
+        y: 0.5
+      LifetimeFactor: 1.0
+      VelocityFactor: 1.0
     SubNodes: []
 EngineExhaustIdle:
   Name: Engine exhaust idle
@@ -258,13 +270,13 @@ EngineExhaustIdle:
     y: 0
     z: -0.453
   Rotation:
-    x: 270
-    y: 180
+    x: -90
+    y: 0
     z: 0
   Scale:
-    x: 10
-    y: 10
-    z: 10
+    x: 1
+    y: 1
+    z: 1
   SubNodes:
   - Name: Engine exhaust R
     Position:
@@ -272,17 +284,20 @@ EngineExhaustIdle:
       y: -0.0015
       z: -0.00092
     Rotation:
-      x: 90
+      x: 0
       y: 0
       z: 0
     Scale:
-      x: 0.025
-      y: 0.025
-      z: 0.025
+      x: 1.0
+      y: 1.0
+      z: 1.0
     NodeParticleSystem:
-      AssetBundlePath: AssetBundles\StandaloneWindows\effects
-      AssetPath: Engine exhaust
-      ParticleSystemPath: ''
+      ResourcePath: ''
+      Scale:
+        x: 0.025
+        y: 0.025
+      LifetimeFactor: 1.0
+      VelocityFactor: 1.0
     SubNodes: []
   - Name: Engine exhaust L
     Position:
@@ -290,17 +305,20 @@ EngineExhaustIdle:
       y: -0.0015
       z: -0.00092
     Rotation:
-      x: 90
+      x: 0
       y: 0
       z: 0
     Scale:
-      x: 0.025
-      y: 0.025
-      z: 0.025
+      x: 1.0
+      y: 1.0
+      z: 1.0
     NodeParticleSystem:
-      AssetBundlePath: AssetBundles\StandaloneWindows\effects
-      AssetPath: Engine exhaust
-      ParticleSystemPath: ''
+      ResourcePath: ''
+      Scale:
+        x: 0.025
+        y: 0.025
+      LifetimeFactor: 1.0
+      VelocityFactor: 1.0
     SubNodes: []
 EngineExhaustBrake:
   Name: Engine exhaust brake
@@ -309,13 +327,13 @@ EngineExhaustBrake:
     y: 0
     z: -0.453
   Rotation:
-    x: 270
-    y: 180
+    x: 90
+    y: 0
     z: 0
   Scale:
-    x: 10
-    y: 10
-    z: 10
+    x: 1
+    y: 1
+    z: 1
   SubNodes:
   - Name: Engine exhaust R
     Position:
@@ -323,17 +341,20 @@ EngineExhaustBrake:
       y: 0.0366
       z: -0.0011
     Rotation:
-      x: 285
-      y: 270
-      z: 270
+      x: 0
+      y: 0
+      z: 15
     Scale:
-      x: 0.05
-      y: 0.05
-      z: 0.05
+      x: 1.0
+      y: 1.0
+      z: 1.0
     NodeParticleSystem:
-      AssetBundlePath: AssetBundles\StandaloneWindows\effects
-      AssetPath: Engine exhaust
-      ParticleSystemPath: ''
+      ResourcePath: ''
+      Scale:
+        x: 0.05
+        y: 0.05
+      LifetimeFactor: 1.0
+      VelocityFactor: 1.0
     SubNodes: []
   - Name: Engine exhaust L
     Position:
@@ -341,17 +362,20 @@ EngineExhaustBrake:
       y: 0.0366
       z: -0.0011
     Rotation:
-      x: 285
-      y: 90
-      z: 90
+      x: 0
+      y: 0
+      z: -15
     Scale:
-      x: 0.05
-      y: 0.05
-      z: 0.05
+      x: 1.0
+      y: 1.0
+      z: 1.0
     NodeParticleSystem:
-      AssetBundlePath: AssetBundles\StandaloneWindows\effects
-      AssetPath: Engine exhaust
-      ParticleSystemPath: ''
+      ResourcePath: ''
+      Scale:
+        x: 0.05
+        y: 0.05
+      LifetimeFactor: 1.0
+      VelocityFactor: 1.0
     SubNodes: []
 StatusRing:
   Name: StatusRing

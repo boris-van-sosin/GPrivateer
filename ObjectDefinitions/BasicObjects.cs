@@ -17,11 +17,21 @@ namespace FullBroadside
         public ParticleSystemData NodeParticleSystem { get; set; }
         public OpenCloseComponentData OpenCloseData { get; set; }
         public HierarchyNode[] SubNodes { get; set; }
-
         public Transform3D ToTransform()
         {
             return new Transform3D(new Basis(Rotation.ToQuaternion()) * Basis.FromScale(Scale.ToVector3()), Position.ToVector3());
         }
+    }
+
+    [Serializable]
+    public struct SerializableVector2
+    {
+        public float x { get; set; }
+        public float y { get; set; }
+
+        static public SerializableVector2 FromSerializable(Vector2 v) => new SerializableVector2() { x = v.X, y = v.Y };
+
+        public Vector2 ToVector2() => new Vector2(x, y);
     }
 
     [Serializable]
@@ -37,7 +47,7 @@ namespace FullBroadside
 
         public Vector3 ToVector3() => new Vector3(x, y, z);
 
-        public Quaternion ToQuaternion() => Quaternion.FromEuler(new Vector3(y, x, z));
+        public Quaternion ToQuaternion() => Quaternion.FromEuler(new Vector3(Mathf.DegToRad(y), Mathf.DegToRad(x), Mathf.DegToRad(z)));
     }
 
     [Serializable]
@@ -51,9 +61,10 @@ namespace FullBroadside
     [Serializable]
     public class ParticleSystemData
     {
-        public string AssetBundlePath { get; set; }
-        public string AssetPath { get; set; }
-        public string ParticleSystemPath { get; set; }
+        public string ResourcePath { get; set; }
+        public SerializableVector2 Scale { get; set; }
+        public float LifetimeFactor { get; set; }
+        public float VelocityFactor { get; set; }
     }
 
     [Serializable]
