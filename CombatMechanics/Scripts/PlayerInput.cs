@@ -23,7 +23,7 @@ public partial class PlayerInput : Node
 		//GD.Print(ev.AsText());
 		if (ev.IsAction("forward"))
 		{
-			GD.Print("Forward");
+			//GD.Print("Forward");
 			if (_controlledShip != null)
                 _controlledShip.Accelerate(ControlMovementDir.Forward);
 		}
@@ -31,25 +31,25 @@ public partial class PlayerInput : Node
 		{
 			if (_controlledShip != null)
 				_controlledShip.Accelerate(ControlMovementDir.Reverse);
-			GD.Print("Backward");
+			//GD.Print("Backward");
 		}
 		else if (ev.IsAction("brake"))
 		{
 			if (_controlledShip != null)
 				_controlledShip.Brake();
-			GD.Print("Brake");
+			//GD.Print("Brake");
 		}
 		else if (ev.IsAction("left"))
 		{
 			if (_controlledShip != null)
 				_controlledShip.Turn(ControlTurningDir.Left);
-			GD.Print("Left");
+			//GD.Print("Left");
 		}
 		else if (ev.IsAction("right"))
 		{
 			if (_controlledShip != null)
 				_controlledShip.Turn(ControlTurningDir.Right);
-			GD.Print("Right");
+			//GD.Print("Right");
 		}
 		else if (ev is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
 		{

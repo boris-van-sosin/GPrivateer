@@ -47,7 +47,7 @@ namespace FullBroadside
 
         public Vector3 ToVector3() => new Vector3(x, y, z);
 
-        public Quaternion ToQuaternion() => Quaternion.FromEuler(new Vector3(Mathf.DegToRad(y), Mathf.DegToRad(x), Mathf.DegToRad(z)));
+        public Quaternion ToQuaternion() => Quaternion.FromEuler(new Vector3(Mathf.DegToRad(x), Mathf.DegToRad(y), Mathf.DegToRad(z)));
     }
 
     [Serializable]

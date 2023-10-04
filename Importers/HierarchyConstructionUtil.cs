@@ -199,7 +199,7 @@ namespace FullBroadside
                         }
                         if (meshCntrOffs.VariantType == Variant.Type.Vector3)
                         {
-                            Vector3 meshOffsVec = meshSz.AsVector3();
+                            Vector3 meshOffsVec = meshCntrOffs.AsVector3();
                             meshOffsVec.X *= sc.x;
                             meshOffsVec.Z *= sc.x;
                             meshOffsVec.Y *= sc.y;
