@@ -27,7 +27,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_jnn1g")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.914699, 0.28225, 0.289242, 0, -0.715705, 0.698403, 0.404136, -0.638828, -0.654655, 0, 2.6534, -2.83038)
+transform = Transform3D(0.914699, 0.28225, 0.289242, 0, -0.715705, 0.698403, 0.404136, -0.638828, -0.654655, 0, 15.567, -9.83038)
+shadow_enabled = true
+sky_mode = 1
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("1_cjmyo")

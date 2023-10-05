@@ -13,23 +13,21 @@ namespace FullBroadside
             VertexIdx = -1;
             UVIdx = -1;
             NormalIdx = -1;
-            ShadeSmooth = false;
         }
 
         public int VertexIdx, UVIdx, NormalIdx;
-        public bool ShadeSmooth;
     }
 
     public struct TriangleInfo
     {
-        public static TriangleInfo From(FaceVertexInfo v0, FaceVertexInfo v1, FaceVertexInfo v2)
+        public static TriangleInfo From(FaceVertexInfo v0, FaceVertexInfo v1, FaceVertexInfo v2, int smoothGroup = -1)
         {
-            return new TriangleInfo() { _trig = (v0, v1, v2) };
+            return new TriangleInfo() { _trig = (v0, v1, v2), SmoothGroup = smoothGroup };
         }
 
-        public static TriangleInfo From((FaceVertexInfo, FaceVertexInfo, FaceVertexInfo) t)
+        public static TriangleInfo From((FaceVertexInfo, FaceVertexInfo, FaceVertexInfo) t, int smoothGroup = -1)
         {
-            return new TriangleInfo() { _trig = t };
+            return new TriangleInfo() { _trig = t, SmoothGroup = smoothGroup };
         }
 
         public static TriangleInfo From(IList<FaceVertexInfo> lst)
@@ -72,6 +70,7 @@ namespace FullBroadside
             */
         }
         private (FaceVertexInfo, FaceVertexInfo, FaceVertexInfo) _trig;
+        public int SmoothGroup;
     }
 
     public abstract class ObjMeshBase
@@ -93,9 +92,9 @@ namespace FullBroadside
     {
         public ObjMesh()
         {
-            Faces = new List<List<FaceVertexInfo>>();
+            Faces = new List<(List<FaceVertexInfo>, int)>();
         }
-        public List<List<FaceVertexInfo>> Faces { get; set; }
+        public List<(List<FaceVertexInfo>, int)> Faces { get; set; }
     }
 
     public class ObjTriangleMesh : ObjMeshBase

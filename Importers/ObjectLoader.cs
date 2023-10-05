@@ -18,6 +18,14 @@ namespace FullBroadside
             {
                 for (int j = 0; j < meshes[i].Faces.Count; ++j)
                 {
+                    if (meshes[i].Faces[j].SmoothGroup == -1)
+                    {
+                        st.SetSmoothGroup(UInt32.MaxValue);
+                    }
+                    else
+                    {
+                        st.SetSmoothGroup((uint)meshes[i].Faces[j].SmoothGroup);
+                    }
                     for (int v = 2; v >= 0; --v)
                     {
                         if (meshes[i].Faces[j][v].UVIdx >= 0)

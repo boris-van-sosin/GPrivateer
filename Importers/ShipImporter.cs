@@ -19,6 +19,8 @@ namespace FullBroadside.Importers
             res.AddRange(HierarchyConstructionUtil.ConstructHierarchy(monitorDef.TeamColorComponents, null, 1, 2, 3));
             res.Add(HierarchyConstructionUtil.ConstructHierarchy(monitorDef.EngineExhaustOn, null, 1, 2, 3)[0]);
 
+            TurretImporter.SpawnMonitorForeGun(rootNode, monitorDef.WeaponHardpoints[0].HardpointNode.ToTransform());
+
             List<Node3D> resNodes = new List<Node3D>(res.Count);
             for (int i = 0; i < res.Count; ++i)
             {

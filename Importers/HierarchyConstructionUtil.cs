@@ -59,6 +59,7 @@ namespace FullBroadside
                     {
                         AppendMesh(lclMeshesToCombine, GlobalMeshLibrary.MeshLibrary.GetMesh(obj.NodeMesh.MeshPath, obj.NodeMesh.SubObjectPath));
                         nextTrFromTopMesh = obj.ToTransform();
+                        nextIsMeshTopLvl = !obj.NodeMesh.DoCombine;
                     }
                     else
                     {
@@ -70,7 +71,8 @@ namespace FullBroadside
                 }
                 else
                 {
-
+                    nextTrFromTopMesh *= obj.ToTransform();
+                    AppendMesh(lclMeshesToCombine, GlobalMeshLibrary.MeshLibrary.GetMesh(obj.NodeMesh.MeshPath, obj.NodeMesh.SubObjectPath), nextTrFromTopMesh);
                 }
             }
             else if (obj.NodeParticleSystem != null)
